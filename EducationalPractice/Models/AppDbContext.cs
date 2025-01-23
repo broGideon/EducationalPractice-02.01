@@ -77,6 +77,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.ClientId).HasColumnName("Client_ID");
             entity.Property(e => e.Description).HasMaxLength(255);
             entity.Property(e => e.OrderNum).HasMaxLength(50);
+            entity.Property(e => e.Status).HasMaxLength(30);
         });
 
         modelBuilder.Entity<Report>(entity =>
@@ -130,6 +131,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.DriverId).HasColumnName("Driver_ID");
             entity.Property(e => e.OrderId).HasColumnName("Order_ID");
             entity.Property(e => e.SendPoint).HasMaxLength(255);
+            entity.Property(e => e.Status).HasMaxLength(30);
             entity.Property(e => e.TransportId).HasColumnName("Transport_ID");
         });
 
