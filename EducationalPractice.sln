@@ -1,0 +1,21 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducationalPractice", "EducationalPractice\EducationalPractice.csproj", "{127F05CA-FDEB-4D2E-95F3-3939BB976FF8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{311DFA72-1C8C-432A-B814-525C10263EE0}"
+	ProjectSection(SolutionItems) = preProject
+		compose.yaml = compose.yaml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{127F05CA-FDEB-4D2E-95F3-3939BB976FF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{127F05CA-FDEB-4D2E-95F3-3939BB976FF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{127F05CA-FDEB-4D2E-95F3-3939BB976FF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{127F05CA-FDEB-4D2E-95F3-3939BB976FF8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

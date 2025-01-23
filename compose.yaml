@@ -1,0 +1,6 @@
+﻿services:
+  educationalpractice:
+    image: educationalpractice
+    build:
+      context: .
+      dockerfile: EducationalPractice/Dockerfile
