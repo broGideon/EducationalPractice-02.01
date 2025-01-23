@@ -32,6 +32,7 @@ public class DriverController: ControllerBase
     [HttpPost]
     public async Task<Driver> Post(Driver driver)
     {
+        driver.IdDriver = null;
         _context.Drivers.Add(driver);
         await _context.SaveChangesAsync();
         return driver;

@@ -32,6 +32,7 @@ public class ClientController: ControllerBase
     [HttpPost]
     public async Task<Client> Post(Client client)
     {
+        client.IdClient = null;
         _context.Clients.Add(client);
         await _context.SaveChangesAsync();
         return client;

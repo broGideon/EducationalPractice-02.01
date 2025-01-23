@@ -32,6 +32,7 @@ public class ReportController: ControllerBase
     [HttpPost]
     public async Task<Report> Post(Report report)
     {
+        report.IdReport = null;
         _context.Reports.Add(report);
         await _context.SaveChangesAsync();
         return report;

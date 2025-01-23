@@ -32,6 +32,7 @@ public class VoyageController: ControllerBase
     [HttpPost]
     public async Task<Voyage> Post(Voyage voyage)
     {
+        voyage.IdVoyage = null;
         _context.Voyages.Add(voyage);
         await _context.SaveChangesAsync();
         return voyage;

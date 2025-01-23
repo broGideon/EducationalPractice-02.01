@@ -32,6 +32,7 @@ public class TransportController: ControllerBase
     [HttpPost]
     public async Task<Transport> Post(Transport transport)
     {
+        transport.IdTransport = null;
         _context.Transports.Add(transport);
         await _context.SaveChangesAsync();
         return transport;

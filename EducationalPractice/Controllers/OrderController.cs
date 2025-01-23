@@ -32,6 +32,7 @@ public class OrderController: ControllerBase
     [HttpPost]
     public async Task<Order> Post(Order order)
     {
+        order.IdOrder = null;
         _context.Orders.Add(order);
         await _context.SaveChangesAsync();
         return order;

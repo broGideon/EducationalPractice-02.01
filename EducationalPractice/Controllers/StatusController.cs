@@ -32,6 +32,7 @@ public class StatusController: ControllerBase
     [HttpPost]
     public async Task<Status> Post(Status status)
     {
+        status.IdStatus = null;
         _context.Status.Add(status);
         await _context.SaveChangesAsync();
         return status;

@@ -32,6 +32,7 @@ public class RoleController: ControllerBase
     [HttpPost]
     public async Task<Role> Post(Role role)
     {
+        role.IdRole = null;
         _context.Roles.Add(role);
         await _context.SaveChangesAsync();
         return role;
