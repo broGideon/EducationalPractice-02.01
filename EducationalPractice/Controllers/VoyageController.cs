@@ -18,14 +18,14 @@ public class VoyageController: ControllerBase
     [HttpGet]
     public async Task<List<Voyage>> GetAll()
     {
-        var listVoyage = await _context.Voyages.Include(p => p.Driver).Include(p => p.Driver).Include(p => p.Order).ToListAsync();
+        var listVoyage = await _context.Voyages.Include(p => p.Driver).Include(p => p.Driver).Include(p => p.Order).ThenInclude(o => o!.Client).ToListAsync();
         return listVoyage;
     }
     
     [HttpGet("{id}")]
     public async Task<Voyage?> GetById(int id)
     {
-        var voyage = await _context.Voyages.Include(p => p.Driver).Include(p => p.Driver).Include(p => p.Order).FirstOrDefaultAsync(p => p.IdVoyage == id);
+        var voyage = await _context.Voyages.Include(p => p.Driver).Include(p => p.Driver).Include(p => p.Order).ThenInclude(o => o!.Client).FirstOrDefaultAsync(p => p.IdVoyage == id);
         return voyage;
     }
 
