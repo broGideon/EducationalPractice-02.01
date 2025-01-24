@@ -18,14 +18,14 @@ public class VoyageController: ControllerBase
     [HttpGet]
     public async Task<List<Voyage>> GetAll()
     {
-        var listVoyage = await _context.Voyages.Include(p => p.Driver).Include(p => p.Driver).Include(p => p.Order).ThenInclude(o => o!.Client).ToListAsync();
+        var listVoyage = await _context.Voyages.Include(p => p.Transport).Include(p => p.Driver).Include(p => p.Order).ThenInclude(o => o!.Client).ToListAsync();
         return listVoyage;
     }
     
     [HttpGet("{id}")]
     public async Task<Voyage?> GetById(int id)
     {
-        var voyage = await _context.Voyages.Include(p => p.Driver).Include(p => p.Driver).Include(p => p.Order).ThenInclude(o => o!.Client).FirstOrDefaultAsync(p => p.IdVoyage == id);
+        var voyage = await _context.Voyages.Include(p => p.Transport).Include(p => p.Driver).Include(p => p.Order).ThenInclude(o => o!.Client).FirstOrDefaultAsync(p => p.IdVoyage == id);
         return voyage;
     }
 
@@ -44,6 +44,7 @@ public class VoyageController: ControllerBase
     [HttpPut("{id}")]
     public async Task<ActionResult> Put(int id, Voyage voyage)
     {
+        //TODO При обновление статуса, статус автомобиля и заказа тоже обновляются, а также обновляется время в заказе на текущее
         voyage.Driver = null;
         voyage.Transport = null;
         voyage.Order = null;

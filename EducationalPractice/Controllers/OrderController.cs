@@ -54,10 +54,10 @@ public class OrderController: ControllerBase
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(int id)
     {
-        var employee = await _context.Employees.FirstOrDefaultAsync(p => p.IdEmployee == id);
-        if (employee == null)
+        var order = await _context.Orders.FirstOrDefaultAsync(p => p.IdOrder == id);
+        if (order == null)
             return NotFound();
-        _context.Employees.Remove(employee);
+        _context.Orders.Remove(order);
         await _context.SaveChangesAsync();
         return Ok();
     }
