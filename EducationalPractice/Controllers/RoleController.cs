@@ -6,10 +6,10 @@ namespace EducationalPractice.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class RoleController: ControllerBase
+public class RoleController : ControllerBase
 {
     private readonly AppDbContext _context;
-    
+
     public RoleController(AppDbContext context)
     {
         _context = context;
@@ -21,7 +21,7 @@ public class RoleController: ControllerBase
         var listRole = await _context.Roles.ToListAsync();
         return listRole;
     }
-    
+
     [HttpGet("{id}")]
     public async Task<Role?> GetById(int id)
     {

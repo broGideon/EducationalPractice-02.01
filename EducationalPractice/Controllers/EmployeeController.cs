@@ -6,10 +6,10 @@ namespace EducationalPractice.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class EmployeeController: ControllerBase
+public class EmployeeController : ControllerBase
 {
     private readonly AppDbContext _context;
-    
+
     public EmployeeController(AppDbContext context)
     {
         _context = context;
@@ -21,7 +21,7 @@ public class EmployeeController: ControllerBase
         var listEmployee = await _context.Employees.Include(p => p.Role).ToListAsync();
         return listEmployee;
     }
-    
+
     [HttpGet("{id}")]
     public async Task<Employee?> GetById(int id)
     {
@@ -34,6 +34,7 @@ public class EmployeeController: ControllerBase
     {
         employee.IdEmployee = null;
         employee.Role = null;
+        employee.Password = BCrypt.Net.BCrypt.HashPassword(employee.Password);
         _context.Employees.Add(employee);
         await _context.SaveChangesAsync();
         return employee;

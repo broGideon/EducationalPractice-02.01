@@ -6,10 +6,10 @@ namespace EducationalPractice.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class DriverController: ControllerBase
+public class DriverController : ControllerBase
 {
     private readonly AppDbContext _context;
-    
+
     public DriverController(AppDbContext context)
     {
         _context = context;
@@ -21,7 +21,7 @@ public class DriverController: ControllerBase
         var listDriver = await _context.Drivers.ToListAsync();
         return listDriver;
     }
-    
+
     [HttpGet("{id}")]
     public async Task<Driver?> GetById(int id)
     {

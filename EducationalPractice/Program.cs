@@ -7,9 +7,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
-builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+builder.Configuration.AddJsonFile("appsettings.json", false, true);
 
-string connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
 builder.Services.AddDbContext<AppDbContext>(option => option.UseSqlServer(connectionString));
 
 var app = builder.Build();
@@ -18,10 +18,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Educational API v1");
-    });
+    app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Educational API v1"); });
 }
 
 app.UsePathBase("/api/v1/");

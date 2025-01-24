@@ -6,10 +6,10 @@ namespace EducationalPractice.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class StatusController: ControllerBase
+public class StatusController : ControllerBase
 {
     private readonly AppDbContext _context;
-    
+
     public StatusController(AppDbContext context)
     {
         _context = context;
@@ -21,7 +21,7 @@ public class StatusController: ControllerBase
         var listStatus = await _context.Status.ToListAsync();
         return listStatus;
     }
-    
+
     [HttpGet("{id}")]
     public async Task<Status?> GetById(int id)
     {

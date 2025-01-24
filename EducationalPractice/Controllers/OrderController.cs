@@ -6,10 +6,10 @@ namespace EducationalPractice.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class OrderController: ControllerBase
+public class OrderController : ControllerBase
 {
     private readonly AppDbContext _context;
-    
+
     public OrderController(AppDbContext context)
     {
         _context = context;
@@ -21,7 +21,7 @@ public class OrderController: ControllerBase
         var listOrder = await _context.Orders.Include(p => p.Client).ToListAsync();
         return listOrder;
     }
-    
+
     [HttpGet("{id}")]
     public async Task<Order?> GetById(int id)
     {

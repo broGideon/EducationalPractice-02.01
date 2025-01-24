@@ -6,10 +6,10 @@ namespace EducationalPractice.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class TransportController: ControllerBase
+public class TransportController : ControllerBase
 {
     private readonly AppDbContext _context;
-    
+
     public TransportController(AppDbContext context)
     {
         _context = context;
@@ -21,7 +21,7 @@ public class TransportController: ControllerBase
         var listTransport = await _context.Transports.Include(p => p.Status).ToListAsync();
         return listTransport;
     }
-    
+
     [HttpGet("{id}")]
     public async Task<Transport?> GetById(int id)
     {

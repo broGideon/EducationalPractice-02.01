@@ -6,10 +6,10 @@ namespace EducationalPractice.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class ClientController: ControllerBase
+public class ClientController : ControllerBase
 {
     private readonly AppDbContext _context;
-    
+
     public ClientController(AppDbContext context)
     {
         _context = context;
@@ -21,7 +21,7 @@ public class ClientController: ControllerBase
         var listClient = await _context.Clients.ToListAsync();
         return listClient;
     }
-    
+
     [HttpGet("{id}")]
     public async Task<Client?> GetById(int id)
     {
