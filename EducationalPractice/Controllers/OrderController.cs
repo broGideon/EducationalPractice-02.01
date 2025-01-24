@@ -58,6 +58,7 @@ public class OrderController: ControllerBase
         if (employee == null)
             return NotFound();
         _context.Employees.Remove(employee);
+        await _context.SaveChangesAsync();
         return Ok();
     }
 }

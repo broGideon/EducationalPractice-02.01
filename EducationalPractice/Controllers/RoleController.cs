@@ -56,6 +56,7 @@ public class RoleController: ControllerBase
         if (role == null)
             return NotFound();
         _context.Roles.Remove(role);
+        await _context.SaveChangesAsync();
         return Ok();
     }
 }

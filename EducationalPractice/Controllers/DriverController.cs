@@ -56,6 +56,7 @@ public class DriverController: ControllerBase
         if (driver == null)
             return NotFound();
         _context.Drivers.Remove(driver);
+        await _context.SaveChangesAsync();
         return Ok();
     }
 }

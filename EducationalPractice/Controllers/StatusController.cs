@@ -56,6 +56,7 @@ public class StatusController: ControllerBase
         if (status == null)
             return NotFound();
         _context.Status.Remove(status);
+        await _context.SaveChangesAsync();
         return Ok();
     }
 }

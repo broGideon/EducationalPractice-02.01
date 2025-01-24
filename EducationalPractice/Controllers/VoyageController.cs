@@ -34,7 +34,7 @@ public class VoyageController: ControllerBase
     {
         voyage.IdVoyage = null;
         voyage.Driver = null;
-        voyage.Order = null;
+        voyage.Transport = null;
         voyage.Order = null;
         _context.Voyages.Add(voyage);
         await _context.SaveChangesAsync();
@@ -45,7 +45,7 @@ public class VoyageController: ControllerBase
     public async Task<ActionResult> Put(int id, Voyage voyage)
     {
         voyage.Driver = null;
-        voyage.Order = null;
+        voyage.Transport = null;
         voyage.Order = null;
         var voyageOld = await _context.Voyages.FirstOrDefaultAsync(p => p.IdVoyage == id);
         if (voyageOld == null)
@@ -62,6 +62,7 @@ public class VoyageController: ControllerBase
         if (voyage == null)
             return NotFound();
         _context.Voyages.Remove(voyage);
+        await _context.SaveChangesAsync();
         return Ok();
     }
 }

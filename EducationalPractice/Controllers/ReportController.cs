@@ -56,6 +56,7 @@ public class ReportController: ControllerBase
         if (report == null)
             return NotFound();
         _context.Reports.Remove(report);
+        await _context.SaveChangesAsync();
         return Ok();
     }
 }

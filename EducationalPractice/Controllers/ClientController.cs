@@ -56,6 +56,7 @@ public class ClientController: ControllerBase
         if (client == null)
             return NotFound();
         _context.Clients.Remove(client);
+        await _context.SaveChangesAsync();
         return Ok();
     }
 }
