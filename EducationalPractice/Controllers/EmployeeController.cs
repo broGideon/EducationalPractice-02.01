@@ -33,6 +33,7 @@ public class EmployeeController: ControllerBase
     public async Task<Employee> Post(Employee employee)
     {
         employee.IdEmployee = null;
+        employee.Role = null;
         _context.Employees.Add(employee);
         await _context.SaveChangesAsync();
         return employee;
@@ -41,6 +42,7 @@ public class EmployeeController: ControllerBase
     [HttpPut("{id}")]
     public async Task<ActionResult> Put(int id, Employee employee)
     {
+        employee.Role = null;
         var employeeOld = await _context.Employees.FirstOrDefaultAsync(p => p.IdEmployee == id);
         if (employeeOld == null)
             return NotFound();

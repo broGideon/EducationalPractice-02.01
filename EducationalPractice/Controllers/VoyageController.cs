@@ -33,6 +33,9 @@ public class VoyageController: ControllerBase
     public async Task<Voyage> Post(Voyage voyage)
     {
         voyage.IdVoyage = null;
+        voyage.Driver = null;
+        voyage.Order = null;
+        voyage.Order = null;
         _context.Voyages.Add(voyage);
         await _context.SaveChangesAsync();
         return voyage;
@@ -41,6 +44,9 @@ public class VoyageController: ControllerBase
     [HttpPut("{id}")]
     public async Task<ActionResult> Put(int id, Voyage voyage)
     {
+        voyage.Driver = null;
+        voyage.Order = null;
+        voyage.Order = null;
         var voyageOld = await _context.Voyages.FirstOrDefaultAsync(p => p.IdVoyage == id);
         if (voyageOld == null)
             return NotFound();

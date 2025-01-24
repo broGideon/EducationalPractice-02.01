@@ -33,6 +33,7 @@ public class TransportController: ControllerBase
     public async Task<Transport> Post(Transport transport)
     {
         transport.IdTransport = null;
+        transport.Status = null;
         _context.Transports.Add(transport);
         await _context.SaveChangesAsync();
         return transport;
@@ -41,6 +42,7 @@ public class TransportController: ControllerBase
     [HttpPut("{id}")]
     public async Task<ActionResult> Put(int id, Transport transport)
     {
+        transport.Status = null;
         var transportOld = await _context.Transports.FirstOrDefaultAsync(p => p.IdTransport == id);
         if (transportOld == null)
             return NotFound();
@@ -56,6 +58,7 @@ public class TransportController: ControllerBase
         if (transport == null)
             return NotFound();
         _context.Transports.Remove(transport);
+        await _context.SaveChangesAsync();
         return Ok();
     }
 }

@@ -33,6 +33,7 @@ public class OrderController: ControllerBase
     public async Task<Order> Post(Order order)
     {
         order.IdOrder = null;
+        order.Client = null;
         _context.Orders.Add(order);
         await _context.SaveChangesAsync();
         return order;
@@ -41,6 +42,7 @@ public class OrderController: ControllerBase
     [HttpPut("{id}")]
     public async Task<ActionResult> Put(int id, Order order)
     {
+        order.Client = null;
         var orderOld = await _context.Orders.FirstOrDefaultAsync(p => p.IdOrder == id);
         if (orderOld == null)
             return NotFound();
