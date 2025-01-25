@@ -23,13 +23,7 @@ public class ReportController : ControllerBase
         return listReport;
     }
 
-    [HttpGet("{id}")]
-    public async Task<Report?> GetById(int id)
-    {
-        var report = await _context.Reports.FirstOrDefaultAsync(p => p.IdReport == id);
-        return report;
-    }
-
+    [Authorize(Roles = "Supervisor")]
     [HttpPost]
     public async Task<Report> Post(Report report)
     {
