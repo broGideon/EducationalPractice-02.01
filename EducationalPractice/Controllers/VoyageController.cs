@@ -20,8 +20,21 @@ public class VoyageController : ControllerBase
     [HttpGet]
     public async Task<List<Voyage>> GetAll()
     {
-        var listVoyage = await _context.Voyages.Include(p => p.Transport).Include(p => p.Driver).Include(p => p.Order)
-            .ThenInclude(o => o!.Client).ToListAsync();
+        var listVoyage = await _context.Voyages
+            .Include(p => p.Transport)
+            .Include(p => p.Driver)
+            .Include(p => p.Order)
+            .ThenInclude(o => o!.Client)
+            .ToListAsync();
+        return listVoyage;
+    }
+
+    [Authorize(Roles = "Supervisor")]
+    [HttpGet("report")]
+    public async Task<List<Voyage>> GetInReport()
+    {
+        DateOnly prevMonth = DateOnly.FromDateTime(DateTime.Today.AddMonths(-1));
+        var listVoyage = await _context.Voyages.Where(v => v.StartDate >= prevMonth).Include(p => p.Transport).ToListAsync();
         return listVoyage;
     }
 

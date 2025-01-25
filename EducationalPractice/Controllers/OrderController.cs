@@ -23,6 +23,15 @@ public class OrderController : ControllerBase
         var listOrder = await _context.Orders.Include(p => p.Client).ToListAsync();
         return listOrder;
     }
+    
+    [Authorize(Roles = "Supervisor")]
+    [HttpGet("report")]
+    public async Task<List<Order>> GetInReport()
+    {
+        DateOnly prevMonth = DateOnly.FromDateTime(DateTime.Today.AddMonths(-1));
+        var listOrder = await _context.Orders.Where(o => o.SendDate >= prevMonth).Include(p => p.Client).ToListAsync();
+        return listOrder;
+    }
 
     [Authorize]
     [HttpPost]
