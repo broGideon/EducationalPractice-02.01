@@ -64,7 +64,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.Login).HasMaxLength(50);
             entity.Property(e => e.MiddleName).HasMaxLength(50);
             entity.Property(e => e.Name).HasMaxLength(50);
-            entity.Property(e => e.Password).HasMaxLength(50);
+            entity.Property(e => e.Password).HasMaxLength(100);
             entity.Property(e => e.RoleId).HasColumnName("Role_ID");
             entity.Property(e => e.Surname).HasMaxLength(50);
         });
@@ -87,6 +87,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.IdReport).HasColumnName("ID_Report");
             entity.Property(e => e.EmployeeId).HasColumnName("Employee_ID");
             entity.Property(e => e.ReportContent).HasMaxLength(100);
+            entity.Property(e => e.ReportType).HasMaxLength(100);
         });
 
         modelBuilder.Entity<Role>(entity =>
