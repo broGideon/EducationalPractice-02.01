@@ -19,7 +19,11 @@ public class ReportController : ControllerBase
     [HttpGet]
     public async Task<List<Report>> GetAll()
     {
-        var listReport = await _context.Reports.ToListAsync();
+        string? idStr = User.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
+        if (string.IsNullOrEmpty(idStr))
+            throw new UnauthorizedAccessException();
+        int id = int.Parse(idStr);
+        var listReport = await _context.Reports.Where(r => r.EmployeeId == id).ToListAsync();
         return listReport;
     }
 
