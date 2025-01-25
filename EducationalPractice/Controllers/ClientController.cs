@@ -1,4 +1,5 @@
 using EducationalPractice.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +16,7 @@ public class ClientController : ControllerBase
         _context = context;
     }
 
+    [Authorize]
     [HttpGet]
     public async Task<List<Client>> GetAll()
     {
@@ -22,6 +24,7 @@ public class ClientController : ControllerBase
         return listClient;
     }
 
+    [Authorize]
     [HttpGet("{id}")]
     public async Task<Client?> GetById(int id)
     {
@@ -29,6 +32,7 @@ public class ClientController : ControllerBase
         return client;
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<Client> Post(Client client)
     {
@@ -38,6 +42,7 @@ public class ClientController : ControllerBase
         return client;
     }
 
+    [Authorize]
     [HttpPut("{id}")]
     public async Task<ActionResult> Put(int id, Client client)
     {
@@ -49,6 +54,7 @@ public class ClientController : ControllerBase
         return Ok();
     }
 
+    [Authorize]
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(int id)
     {

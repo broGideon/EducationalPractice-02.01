@@ -1,3 +1,4 @@
+using System.IdentityModel.Tokens.Jwt;
 using EducationalPractice.Models;
 using EducationalPractice.Support;
 using Microsoft.AspNetCore.Mvc;
@@ -31,13 +32,16 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("/refresh")]
-    public AuthResponse RefreshToken(string token)
+    public AuthResponse RefreshToken(RefreshToken request)
     {
-        var principal = _jwtHelper.ValidateToken(token);
+        Console.WriteLine(request.Token);
+        var principal = _jwtHelper.ValidateToken(request.Token);
         if (principal == null)
             throw new UnauthorizedAccessException();
-        var id = principal.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
-        var role = principal.Claims.FirstOrDefault(c => c.Type == "role")?.Value;
+        var handler = new JwtSecurityTokenHandler();
+        var jwtToken = handler.ReadJwtToken(request.Token);
+        var id = jwtToken.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
+        var role = jwtToken.Claims.FirstOrDefault(c => c.Type == "role")?.Value;
         if (string.IsNullOrWhiteSpace(id) && string.IsNullOrWhiteSpace(role))
             throw new UnauthorizedAccessException();
         var (accessToken, refreshToken) = _jwtHelper.CreateToken(int.Parse(id!), role!);

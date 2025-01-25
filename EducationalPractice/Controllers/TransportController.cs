@@ -1,9 +1,11 @@
 using EducationalPractice.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace EducationalPractice.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class TransportController : ControllerBase

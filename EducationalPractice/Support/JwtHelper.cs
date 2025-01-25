@@ -22,8 +22,8 @@ public class JwtHelper
         {
             Subject = new ClaimsIdentity(new Claim[]
             {
-                new("Id", id.ToString()),
-                new(ClaimTypes.Role, role)
+                new("id", id.ToString()),
+                new("role", role)
             }),
             Expires = DateTime.UtcNow.AddHours(1),
             Issuer = _config["Jwt:Issuer"],
@@ -35,8 +35,8 @@ public class JwtHelper
         {
             Subject = new ClaimsIdentity(new Claim[]
             {
-                new("Id", id.ToString()),
-                new(ClaimTypes.Role, role)
+                new("id", id.ToString()),
+                new("role", role)
             }),
             Expires = DateTime.UtcNow.AddDays(5),
             Issuer = _config["Jwt:Issuer"],
@@ -52,7 +52,7 @@ public class JwtHelper
     public ClaimsPrincipal? ValidateToken(string token)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.UTF8.GetBytes(_config["Jwt:Audience"]!);
+        var key = Encoding.UTF8.GetBytes(_config["Jwt:Key"]!);
         try
         {
             var principal = tokenHandler.ValidateToken(token, new TokenValidationParameters
