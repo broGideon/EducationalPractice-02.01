@@ -15,6 +15,7 @@ public class ReportController : ControllerBase
         _context = context;
     }
 
+    [Authorize(Roles = "Supervisor")]
     [HttpGet]
     public async Task<List<Report>> GetAll()
     {
