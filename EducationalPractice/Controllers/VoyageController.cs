@@ -42,7 +42,6 @@ public class VoyageController : ControllerBase
     [HttpPut("{id}")]
     public async Task<ActionResult> Put(int id, Voyage voyage)
     {
-        //TODO При обновление статуса, статус автомобиля и заказа тоже обновляются, а также обновляется время в заказе на текущее
         voyage.Driver = null;
         voyage.Transport = null;
         voyage.Order = null;
@@ -51,6 +50,22 @@ public class VoyageController : ControllerBase
             return NotFound();
         _context.Entry(voyageOld).CurrentValues.SetValues(voyage);
         await _context.SaveChangesAsync();
+        if (voyage.Status == "Выполнено")
+        {
+            var oldOrder = await _context.Orders.FirstOrDefaultAsync(o => o.IdOrder == voyage.OrderId);
+            if (oldOrder != null)
+            {
+                oldOrder.Status = voyage.Status;
+                oldOrder.ArriveDate = DateOnly.FromDateTime(DateTime.Today);
+                _context.Entry(oldOrder).CurrentValues.SetValues(oldOrder);
+            }
+            var oldTransport = await _context.Transports.FirstOrDefaultAsync(t => t.IdTransport == voyage.TransportId);
+            if (oldTransport != null)
+            {
+                oldTransport.StatusId = 1;
+                _context.Entry(oldTransport).CurrentValues.SetValues(oldTransport);
+            }
+        }
         return Ok();
     }
 
