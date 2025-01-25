@@ -1,4 +1,5 @@
 using EducationalPractice.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +16,7 @@ public class OrderController : ControllerBase
         _context = context;
     }
 
+    [Authorize]
     [HttpGet]
     public async Task<List<Order>> GetAll()
     {
@@ -22,13 +24,7 @@ public class OrderController : ControllerBase
         return listOrder;
     }
 
-    [HttpGet("{id}")]
-    public async Task<Order?> GetById(int id)
-    {
-        var order = await _context.Orders.Include(p => p.Client).FirstOrDefaultAsync(p => p.IdOrder == id);
-        return order;
-    }
-
+    [Authorize]
     [HttpPost]
     public async Task<Order> Post(Order order)
     {
@@ -39,6 +35,7 @@ public class OrderController : ControllerBase
         return order;
     }
 
+    [Authorize]
     [HttpPut("{id}")]
     public async Task<ActionResult> Put(int id, Order order)
     {
@@ -51,6 +48,7 @@ public class OrderController : ControllerBase
         return Ok();
     }
 
+    [Authorize]
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(int id)
     {

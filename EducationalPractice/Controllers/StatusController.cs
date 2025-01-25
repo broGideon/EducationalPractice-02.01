@@ -1,4 +1,5 @@
 using EducationalPractice.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +16,7 @@ public class StatusController : ControllerBase
         _context = context;
     }
 
+    [Authorize(Roles = "Supervisor, Administrator")]
     [HttpGet]
     public async Task<List<Status>> GetAll()
     {
@@ -22,13 +24,7 @@ public class StatusController : ControllerBase
         return listStatus;
     }
 
-    [HttpGet("{id}")]
-    public async Task<Status?> GetById(int id)
-    {
-        var status = await _context.Status.FirstOrDefaultAsync(p => p.IdStatus == id);
-        return status;
-    }
-
+    [Authorize(Roles = "Supervisor")]
     [HttpPost]
     public async Task<Status> Post(Status status)
     {
@@ -38,6 +34,7 @@ public class StatusController : ControllerBase
         return status;
     }
 
+    [Authorize(Roles = "Supervisor")]
     [HttpPut("{id}")]
     public async Task<ActionResult> Put(int id, Status status)
     {
@@ -49,6 +46,7 @@ public class StatusController : ControllerBase
         return Ok();
     }
 
+    [Authorize(Roles = "Supervisor")]
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(int id)
     {

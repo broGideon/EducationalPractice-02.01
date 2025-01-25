@@ -1,4 +1,5 @@
 using EducationalPractice.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,13 +23,7 @@ public class DriverController : ControllerBase
         return listDriver;
     }
 
-    [HttpGet("{id}")]
-    public async Task<Driver?> GetById(int id)
-    {
-        var driver = await _context.Drivers.FirstOrDefaultAsync(p => p.IdDriver == id);
-        return driver;
-    }
-
+    [Authorize(Roles = "Administrator, Supervisor")]
     [HttpPost]
     public async Task<Driver> Post(Driver driver)
     {
@@ -38,6 +33,7 @@ public class DriverController : ControllerBase
         return driver;
     }
 
+    [Authorize(Roles = "Administrator, Supervisor")]
     [HttpPut("{id}")]
     public async Task<ActionResult> Put(int id, Driver driver)
     {
@@ -49,6 +45,7 @@ public class DriverController : ControllerBase
         return Ok();
     }
 
+    [Authorize(Roles = "Administrator, Supervisor")]
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(int id)
     {

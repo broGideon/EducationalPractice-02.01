@@ -24,15 +24,7 @@ public class ClientController : ControllerBase
         return listClient;
     }
 
-    [Authorize]
-    [HttpGet("{id}")]
-    public async Task<Client?> GetById(int id)
-    {
-        var client = await _context.Clients.FirstOrDefaultAsync(p => p.IdClient == id);
-        return client;
-    }
-
-    [Authorize]
+    [Authorize(Roles = "Administrator, Supervisor")]
     [HttpPost]
     public async Task<Client> Post(Client client)
     {
@@ -42,7 +34,7 @@ public class ClientController : ControllerBase
         return client;
     }
 
-    [Authorize]
+    [Authorize(Roles = "Administrator, Supervisor")]
     [HttpPut("{id}")]
     public async Task<ActionResult> Put(int id, Client client)
     {
@@ -54,7 +46,7 @@ public class ClientController : ControllerBase
         return Ok();
     }
 
-    [Authorize]
+    [Authorize(Roles = "Administrator, Supervisor")]
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(int id)
     {

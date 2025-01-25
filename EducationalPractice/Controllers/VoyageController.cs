@@ -1,4 +1,5 @@
 using EducationalPractice.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +16,7 @@ public class VoyageController : ControllerBase
         _context = context;
     }
 
+    [Authorize(Roles = "Logistician, Supervisor")]
     [HttpGet]
     public async Task<List<Voyage>> GetAll()
     {
@@ -23,14 +25,7 @@ public class VoyageController : ControllerBase
         return listVoyage;
     }
 
-    [HttpGet("{id}")]
-    public async Task<Voyage?> GetById(int id)
-    {
-        var voyage = await _context.Voyages.Include(p => p.Transport).Include(p => p.Driver).Include(p => p.Order)
-            .ThenInclude(o => o!.Client).FirstOrDefaultAsync(p => p.IdVoyage == id);
-        return voyage;
-    }
-
+    [Authorize(Roles = "Logistician, Supervisor")]
     [HttpPost]
     public async Task<Voyage> Post(Voyage voyage)
     {
@@ -43,6 +38,7 @@ public class VoyageController : ControllerBase
         return voyage;
     }
 
+    [Authorize(Roles = "Logistician, Supervisor")]
     [HttpPut("{id}")]
     public async Task<ActionResult> Put(int id, Voyage voyage)
     {
@@ -58,6 +54,7 @@ public class VoyageController : ControllerBase
         return Ok();
     }
 
+    [Authorize(Roles = "Logistician, Supervisor")]
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(int id)
     {

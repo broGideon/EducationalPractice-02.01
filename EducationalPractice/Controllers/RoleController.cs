@@ -1,4 +1,5 @@
 using EducationalPractice.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +16,7 @@ public class RoleController : ControllerBase
         _context = context;
     }
 
+    [Authorize(Roles = "Supervisor")]
     [HttpGet]
     public async Task<List<Role>> GetAll()
     {
@@ -22,13 +24,7 @@ public class RoleController : ControllerBase
         return listRole;
     }
 
-    [HttpGet("{id}")]
-    public async Task<Role?> GetById(int id)
-    {
-        var role = await _context.Roles.FirstOrDefaultAsync(p => p.IdRole == id);
-        return role;
-    }
-
+    [Authorize(Roles = "Supervisor")]
     [HttpPost]
     public async Task<Role> Post(Role role)
     {
@@ -38,6 +34,7 @@ public class RoleController : ControllerBase
         return role;
     }
 
+    [Authorize(Roles = "Supervisor")]
     [HttpPut("{id}")]
     public async Task<ActionResult> Put(int id, Role role)
     {
@@ -49,6 +46,7 @@ public class RoleController : ControllerBase
         return Ok();
     }
 
+    [Authorize(Roles = "Supervisor")]
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(int id)
     {

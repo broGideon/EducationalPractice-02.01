@@ -17,6 +17,7 @@ public class TransportController : ControllerBase
         _context = context;
     }
 
+    [Authorize]
     [HttpGet]
     public async Task<List<Transport>> GetAll()
     {
@@ -24,13 +25,7 @@ public class TransportController : ControllerBase
         return listTransport;
     }
 
-    [HttpGet("{id}")]
-    public async Task<Transport?> GetById(int id)
-    {
-        var transport = await _context.Transports.Include(p => p.Status).FirstOrDefaultAsync(p => p.IdTransport == id);
-        return transport;
-    }
-
+    [Authorize(Roles = "Administrator, Supervisor")]
     [HttpPost]
     public async Task<Transport> Post(Transport transport)
     {
@@ -41,6 +36,7 @@ public class TransportController : ControllerBase
         return transport;
     }
 
+    [Authorize(Roles = "Administrator, Supervisor")]
     [HttpPut("{id}")]
     public async Task<ActionResult> Put(int id, Transport transport)
     {
@@ -53,6 +49,7 @@ public class TransportController : ControllerBase
         return Ok();
     }
 
+    [Authorize(Roles = "Administrator, Supervisor")]
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(int id)
     {

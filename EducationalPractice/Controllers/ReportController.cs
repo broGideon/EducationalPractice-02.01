@@ -1,4 +1,5 @@
 using EducationalPractice.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -35,27 +36,5 @@ public class ReportController : ControllerBase
         _context.Reports.Add(report);
         await _context.SaveChangesAsync();
         return report;
-    }
-
-    [HttpPut("{id}")]
-    public async Task<ActionResult> Put(int id, Report report)
-    {
-        var reportOld = await _context.Reports.FirstOrDefaultAsync(p => p.IdReport == id);
-        if (reportOld == null)
-            return NotFound();
-        _context.Entry(reportOld).CurrentValues.SetValues(report);
-        await _context.SaveChangesAsync();
-        return Ok();
-    }
-
-    [HttpDelete("{id}")]
-    public async Task<ActionResult> Delete(int id)
-    {
-        var report = await _context.Reports.FirstOrDefaultAsync(p => p.IdReport == id);
-        if (report == null)
-            return NotFound();
-        _context.Reports.Remove(report);
-        await _context.SaveChangesAsync();
-        return Ok();
     }
 }
