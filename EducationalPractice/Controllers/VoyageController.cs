@@ -62,7 +62,6 @@ public class VoyageController : ControllerBase
         if (voyageOld == null)
             return NotFound();
         _context.Entry(voyageOld).CurrentValues.SetValues(voyage);
-        await _context.SaveChangesAsync();
         if (voyage.Status == "Выполнено")
         {
             var oldOrder = await _context.Orders.FirstOrDefaultAsync(o => o.IdOrder == voyage.OrderId);
@@ -79,6 +78,7 @@ public class VoyageController : ControllerBase
                 _context.Entry(oldTransport).CurrentValues.SetValues(oldTransport);
             }
         }
+        await _context.SaveChangesAsync();
         return Ok();
     }
 
