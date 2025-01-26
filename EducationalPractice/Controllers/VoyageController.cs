@@ -33,8 +33,9 @@ public class VoyageController : ControllerBase
     [HttpGet("report")]
     public async Task<List<Voyage>> GetInReport()
     {
-        DateOnly prevMonth = DateOnly.FromDateTime(DateTime.Today.AddMonths(-1));
-        var listVoyage = await _context.Voyages.Where(v => v.StartDate >= prevMonth).Include(p => p.Transport).ToListAsync();
+        var prevMonth = DateOnly.FromDateTime(DateTime.Today.AddMonths(-1));
+        var listVoyage = await _context.Voyages.Where(v => v.StartDate >= prevMonth).Include(p => p.Transport)
+            .ToListAsync();
         return listVoyage;
     }
 
@@ -71,6 +72,7 @@ public class VoyageController : ControllerBase
                 oldOrder.ArriveDate = DateOnly.FromDateTime(DateTime.Today);
                 _context.Entry(oldOrder).CurrentValues.SetValues(oldOrder);
             }
+
             var oldTransport = await _context.Transports.FirstOrDefaultAsync(t => t.IdTransport == voyage.TransportId);
             if (oldTransport != null)
             {
@@ -78,6 +80,7 @@ public class VoyageController : ControllerBase
                 _context.Entry(oldTransport).CurrentValues.SetValues(oldTransport);
             }
         }
+
         await _context.SaveChangesAsync();
         return Ok();
     }
