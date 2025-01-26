@@ -38,4 +38,16 @@ public class ReportController : ControllerBase
         await _context.SaveChangesAsync();
         return report;
     }
+
+    [Authorize(Roles = "Supervisor")]
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> Delete(int id)
+    {
+        var report = await _context.Reports.FirstOrDefaultAsync(r => r.IdReport == id);
+        if (report == null)
+            return NotFound();
+        _context.Reports.Remove(report);
+        await _context.SaveChangesAsync();
+        return Ok();
+    }
 }
