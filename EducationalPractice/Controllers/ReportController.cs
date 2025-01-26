@@ -33,6 +33,7 @@ public class ReportController : ControllerBase
     public async Task<Report> Post(Report report)
     {
         report.IdReport = null;
+        report.EmployeeId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == "id")?.Value!);
         _context.Reports.Add(report);
         await _context.SaveChangesAsync();
         return report;

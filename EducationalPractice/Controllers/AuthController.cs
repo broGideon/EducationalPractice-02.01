@@ -34,7 +34,6 @@ public class AuthController : ControllerBase
     [HttpPost("/refresh")]
     public AuthResponse RefreshToken(RefreshToken request)
     {
-        Console.WriteLine(request.Token);
         var principal = _jwtHelper.ValidateToken(request.Token);
         if (principal == null)
             throw new UnauthorizedAccessException();

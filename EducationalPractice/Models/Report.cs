@@ -4,7 +4,7 @@ public class Report
 {
     public int? IdReport { get; set; }
 
-    public int EmployeeId { get; set; }
+    public int? EmployeeId { get; set; }
 
     public string ReportType { get; set; }
 
